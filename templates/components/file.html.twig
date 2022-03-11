@@ -1,5 +1,17 @@
 <div{{ attributes }}
-        data-action="change->live#update"
+        data-action="change->live#action"
+        data-action-name="file(file)|test"
 >
-    <input type="file" name="file" />
+    <input type="file" name="file" {{ stimulus_target('live', 'file')}} multiple />
+
+    <ul>
+        {% for files in this.files %}
+            {% if files is not iterable %}
+                {% set files = [files] %}
+            {% endif %}
+            {% for file in files %}
+                <li>{{ file.clientOriginalName }} ({{ file.guessClientExtension }}, {{ file.size }})</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
 </div>
