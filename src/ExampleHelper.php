@@ -9,6 +9,7 @@ use App\Twig\Components\CollectionTypeFormComponent;
 use App\Twig\Components\ComplexInputComponent;
 use App\Twig\Components\DateComponent;
 use App\Twig\Components\EditPostNoFormComponent;
+use App\Twig\Components\FileComponent;
 use App\Twig\Components\InputComponent;
 use App\Twig\Components\MarkdownInputComponent;
 use App\Twig\Components\NotificationComponent;
@@ -33,6 +34,7 @@ class ExampleHelper
             AddNotificationComponent::class,
             DateComponent::class,
             MarkdownInputComponent::class,
+            FileComponent::class,
         ];
 
         return $this->prepareExamples($examples);

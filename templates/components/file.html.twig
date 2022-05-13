@@ -1,8 +1,8 @@
 <div{{ attributes }}
         data-action="change->live#action"
-        data-action-name="file(file)|test"
+        data-action-name="files(form[file][])|test"
 >
-    <input type="file" name="file" {{ stimulus_target('live', 'file')}} multiple />
+    <input type="file" name="form[file][]" {{ stimulus_target('live', 'file')}} multiple />
 
     <ul>
         {% for files in this.files %}
