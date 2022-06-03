@@ -1,11 +1,34 @@
-<div{{ attributes }}
-        data-action="change->live#action"
-        data-action-name="files(form[file][])|test"
->
-    <input type="file" name="form[file][]" {{ stimulus_target('live', 'file')}} multiple />
+<div{{ attributes }}>
+    <h3>Auto upload (multiple files expected):</h3>
+    <p>
+        <input data-action="change->live#uploadFile" data-action-name="test" type="file" name="autoFiles[]" multiple autocomplete="off" />
+    </p>
 
+    <h3>Manual upload (should fail when multiple files provided):</h3>
+    <p>
+
+        <input data-action="live#update" type="file" name="manualFiles[]" multiple autocomplete="off" />
+        <button
+                data-action="live#action"
+                data-action-name="upload_files(manualFiles[])|test"
+        >Send!</button>
+    </p>
+
+    <h2>Auto files</h2>
     <ul>
-        {% for files in this.files %}
+        {% for files in this.autoFiles %}
+            {% if files is not iterable %}
+                {% set files = [files] %}
+            {% endif %}
+            {% for file in files %}
+                <li>{{ file.clientOriginalName }} ({{ file.guessClientExtension }}, {{ file.size }})</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+
+    <h2>Manual files</h2>
+    <ul>
+        {% for files in this.manualFiles %}
             {% if files is not iterable %}
                 {% set files = [files] %}
             {% endif %}
