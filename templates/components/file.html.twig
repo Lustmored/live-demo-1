@@ -1,18 +1,29 @@
 <div{{ attributes }}>
-    <h3>Auto upload (multiple files expected):</h3>
-    <p>
+    <h3>Auto upload (multiple files):</h3>
+    <div>
         <input data-action="change->live#uploadFile" data-action-name="test" type="file" name="autoFiles[]" multiple autocomplete="off" />
-    </p>
+        {% if this.getError('autoFiles[0]') %}
+            <div class="error">
+                <small>Note: this shows only errors for the first file.</small>
+                {{ this.getError('autoFiles[0]').message }}
+            </div>
+        {% endif %}
+    </div>
 
-    <h3>Manual upload (should fail when multiple files provided):</h3>
-    <p>
+    <h3>Manual upload:</h3>
+    <div>
 
-        <input data-action="live#update" type="file" name="manualFiles[]" multiple autocomplete="off" />
+        <input data-action="live#update" type="file" name="manualFile" autocomplete="off" />
+        {% if this.getError('manualFile') %}
+            <div class="error">
+                {{ this.getError('manualFile').message }}
+            </div>
+        {% endif %}
         <button
                 data-action="live#action"
-                data-action-name="upload_files(manualFiles[])|test"
+                data-action-name="upload_files(manualFile)|test"
         >Send!</button>
-    </p>
+    </div>
 
     <h2>Auto files</h2>
     <ul>
@@ -26,15 +37,10 @@
         {% endfor %}
     </ul>
 
-    <h2>Manual files</h2>
+    <h2>Manual file</h2>
     <ul>
-        {% for files in this.manualFiles %}
-            {% if files is not iterable %}
-                {% set files = [files] %}
-            {% endif %}
-            {% for file in files %}
-                <li>{{ file.clientOriginalName }} ({{ file.guessClientExtension }}, {{ file.size }})</li>
-            {% endfor %}
-        {% endfor %}
+        {% if manualFile %}
+            <li>{{ manualFile.clientOriginalName }} ({{ manualFile.guessClientExtension }}, {{ manualFile.size }})</li>
+        {% endif %}
     </ul>
 </div>
