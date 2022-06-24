@@ -92,7 +92,7 @@ class PostFormComponent extends AbstractController
         $this->addFlash('success', 'Post saved!');
 
         return $this->redirectToRoute('app_post_show', [
-            'id' => $this->post->getId(),
+            'id' => $post->getId(),
         ]);
     }
 }
