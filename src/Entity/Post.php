@@ -38,6 +38,9 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
 
+    #[ORM\Column]
+    private ?string $image = null;
+
     #[ORM\OneToMany(targetEntity: PostSource::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
     #[Groups('live_component')]
     #[Assert\Valid]
@@ -104,6 +107,22 @@ class Post
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param  string|null  $image
+     */
+    public function setImage(?string $image): void
+    {
+        $this->image = $image;
     }
 
     /**
