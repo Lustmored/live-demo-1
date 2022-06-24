@@ -16,6 +16,10 @@
 
         {{ form_row(this.form.imageFile) }}
 
+        {% if post and post.image %}
+            <img src="{{ post.image }}" alt="Image" width="200" />
+        {% endif %}
+
         {{ component('form_markdown_textarea', {
             form: this.form,
             post: post

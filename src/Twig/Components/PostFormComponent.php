@@ -66,7 +66,7 @@ class PostFormComponent extends AbstractController
     }
 
     #[LiveAction]
-    public function save(EntityManagerInterface $entityManager)
+    public function save(EntityManagerInterface $entityManager, string $projectDir)
     {
         $this->submitForm();
 
@@ -77,6 +77,15 @@ class PostFormComponent extends AbstractController
 
         /** @var Post $post */
         $post = $this->getFormInstance()->getData();
+
+        if ($post->imageFile) {
+            // Save file somewhere and set its path on the post entity
+            $dir = $projectDir.'/public/temp';
+            @mkdir($dir);
+            $file = $post->imageFile->move($dir);
+            $post->setImage('/temp/'.$file->getBasename());
+        }
+
         $entityManager->persist($post);
         $entityManager->flush();
 
