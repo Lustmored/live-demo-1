@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -37,6 +38,9 @@ class Post
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
+
+    #[Assert\Image]
+    public ?UploadedFile $imageFile = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $image = null;

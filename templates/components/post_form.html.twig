@@ -14,6 +14,8 @@
             help: 'If blank, this will be auto-generated.'~this.alreadyUsedSlugMessage
         }) }}
 
+        {{ form_row(this.form.imageFile) }}
+
         {{ component('form_markdown_textarea', {
             form: this.form,
             post: post
@@ -29,7 +31,7 @@
             type="button"
             class="btn btn-secondary"
             data-action="live#action"
-            data-action-name="prevent|save"
+            data-action-name="prevent|upload_files|save"
             data-loading="addAttribute(disabled)"
         >Submit via live action</button>
     {{ form_end(this.form) }}

@@ -15,6 +15,7 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('slug')
+            ->add('imageFile')
             ->add('content', TextareaType::class, [
                 // this field is re-rendered as you type
                 // by default, the "trim" functionality will remove
