@@ -22,6 +22,38 @@
         </div>
 
         <div class="mb-3">
+            <label for="edit_post_image" class="form-label">Image</label>
+            <div class="input-group">
+                <input
+                        type="hidden"
+                        data-model="post.image"
+                        data-action="blur->live#update"
+                        value="{{ post.image }}"
+                >
+                {% if not post.image %}
+                    <input
+                            type="file"
+                            data-model="image"
+                            data-action="live#uploadFile"
+                            data-action-name="uploadImage"
+                            class="form-control {{ this.getError('image') ? 'is-invalid' : '' }}"
+                            id="edit_post_image"
+                    >
+                {% else %}
+                    <div class="success">
+                        <img src="{{ post.image }}" alt="Image" width="200" />
+                        <a href="#" data-action="live#action" data-action-name="removeImage">Remove image</a>
+                    </div>
+                {% endif %}
+                {% if this.getError('image') %}
+                    <div class="invalid-feedback">
+                        {{ this.getError('image').message }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="mb-3">
             <label for="edit_post_content" class="form-label">Content</label>
             <div class="input-group">
                 <textarea

@@ -38,7 +38,7 @@ class Post
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $image = null;
 
     #[ORM\OneToMany(targetEntity: PostSource::class, mappedBy: 'post', orphanRemoval: true, cascade: ['persist'])]
